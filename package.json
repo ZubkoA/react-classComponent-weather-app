@@ -2,7 +2,7 @@
   "name": "classy-weather",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ZubkoA.github.io/weather-app",
+  "homepage": "https://ZubkoA.github.io/react-classComponent-weather-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
