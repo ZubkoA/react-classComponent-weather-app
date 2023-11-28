@@ -22,10 +22,18 @@ function convertToFlag(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
     .split("")
-    .map((char) => 127397 + char.charCodeAt());
+    .map((char) => 127462 + char.charCodeAt(0) - 65);
   return String.fromCodePoint(...codePoints);
 }
-console.log(convertToFlag("AF"));
+function convert(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split("")
+    .map((char) => 127462 + char.charCodeAt(0) - 65);
+  console.log(codePoints);
+}
+
+console.log(convert("AD"));
 
 function formatDay(dateStr) {
   return new Intl.DateTimeFormat("en", {
@@ -37,7 +45,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: "Lisbon",
+      location: "Vinnytsia",
       isLoading: false,
       displayLocation: "",
       weather: {},
@@ -53,7 +61,7 @@ class App extends React.Component {
         `https://geocoding-api.open-meteo.com/v1/search?name=${this.state.location}`
       );
       const geoData = await geoRes.json();
-      console.log(this.state);
+      console.log(geoData.results);
 
       if (!geoData.results) throw new Error("Location not found");
 
@@ -90,12 +98,16 @@ class App extends React.Component {
             onChange={(e) => this.setState({ location: e.target.value })}
           />
         </div>
-        <button onClick={this.fetchWeather}>Get weather</button>
+        <button className="button" onClick={this.fetchWeather}>
+          Get weather
+        </button>
 
         {this.state.isLoading && <p className="loader">Loading...</p>}
 
         {this.state.weather.weathercode && (
-          <Weather weather={weather} location={displayLocation} />
+          <>
+            <Weather weather={weather} location={displayLocation} />
+          </>
         )}
       </div>
     );
